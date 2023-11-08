@@ -12,8 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.InputStream;
@@ -23,13 +21,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 微信消息接收
+ * 微信消息接收（非云托管模式）
  * @author: lantaimin
  * @version: 1.0
  * @date: 2023-11-08 13:58:47
  **/
-@RestController
-@RequestMapping("/api/wechat/message")
+//@RestController
+//@RequestMapping("/api/wechat/message")
+@Deprecated
 public class MessageController {
     private static Logger log = LoggerFactory.getLogger(MessageController.class);
     private static final String tokenEric = "ltm";
@@ -44,7 +43,7 @@ public class MessageController {
      * @param request
      * @return
      */
-    @GetMapping
+    //@GetMapping
     public String verifyToken(HttpServletRequest request) {
         String signature = request.getParameter("signature");
         String timestamp = request.getParameter("timestamp");
@@ -80,7 +79,7 @@ public class MessageController {
      * @return
      * @throws Exception
      */
-    @PostMapping
+    //@PostMapping
     public String receiveMessage(HttpServletRequest request) throws Exception {
         WxMpXmlMessage wxMpXmlMessage = WxMpXmlMessage.fromXml(request.getInputStream());
         String reqData = JSONUtil.toJsonStr(wxMpXmlMessage);
