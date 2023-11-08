@@ -6,6 +6,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://10.39.103.174:3306/ltm?useUnicode=true&characterEncoding=utf8
+    #url: jdbc:mysql://sh-cynosdbmysql-grp-i865seje.sql.tencentcdb.com:25496/ltm?useUnicode=true&characterEncoding=utf8
     username: root
     password: 82zRCZRK
   mvc:
