@@ -3,6 +3,7 @@ package com.tencent.wxcloudrun.controller;
 import com.tencent.wxcloudrun.dao.TCustomerBaseMapper;
 import com.tencent.wxcloudrun.dto.QueryCustomerInfoReq;
 import com.tencent.wxcloudrun.model.TCustomerBase;
+import com.tencent.wxcloudrun.service.WxMessageLogService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.tencent.wxcloudrun.config.ApiResponse;
@@ -10,10 +11,7 @@ import com.tencent.wxcloudrun.dto.CounterRequest;
 import com.tencent.wxcloudrun.model.Counter;
 import com.tencent.wxcloudrun.service.CounterService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -37,6 +35,15 @@ public class CounterController {
         this.logger = LoggerFactory.getLogger(CounterController.class);
     }
 
+    @Autowired
+    private WxMessageLogService wxMessageLogService;
+
+    @PostMapping(value = "/api/message")
+    String queryCustomerInfo(@RequestParam String reqData) {
+        logger.info("接收到公众号的推送消息：{}", reqData);
+        wxMessageLogService.saveMessageLog(reqData, "success");
+        return "success";
+    }
 
     /**
      * 获取当前计数
