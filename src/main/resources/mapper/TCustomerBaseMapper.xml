@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tencent.wxcloudrun.dao.TCustomerBaseMapper">
+    <resultMap id="BaseResultMap" type="com.tencent.wxcloudrun.model.TCustomerBase">
+        <!--@mbg.generated-->
+        <!--@Table t_customer_base-->
+        <id column="CUSTOMER_ID" jdbcType="VARCHAR" property="customerId"/>
+        <result column="CUSTOMER_NAME" jdbcType="VARCHAR" property="customerName"/>
+        <result column="STATUS" jdbcType="CHAR" property="status"/>
+        <result column="CREATE_TIME" jdbcType="BIGINT" property="createTime"/>
+        <result column="CREATE_USER" jdbcType="VARCHAR" property="createUser"/>
+        <result column="UPDATE_TIME" jdbcType="BIGINT" property="updateTime"/>
+        <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        CUSTOMER_ID, CUSTOMER_NAME, `STATUS`, CREATE_TIME, CREATE_USER, UPDATE_TIME, REMARK
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from t_customer_base
+        where CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
+    </select>
+    <select id="queryByCustomerName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from t_customer_base
+        where CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        <!--@mbg.generated-->
+        delete
+        from t_customer_base
+        where CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.tencent.wxcloudrun.model.TCustomerBase">
+        <!--@mbg.generated-->
+        insert into t_customer_base (CUSTOMER_ID, CUSTOMER_NAME, `STATUS`,
+                                     CREATE_TIME, CREATE_USER, UPDATE_TIME,
+                                     REMARK)
+        values (#{customerId,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, #{status,jdbcType=CHAR},
+                #{createTime,jdbcType=BIGINT}, #{createUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=BIGINT},
+                #{remark,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.tencent.wxcloudrun.model.TCustomerBase">
+        <!--@mbg.generated-->
+        insert into t_customer_base
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="customerId != null">
+                CUSTOMER_ID,
+            </if>
+            <if test="customerName != null">
+                CUSTOMER_NAME,
+            </if>
+            <if test="status != null">
+                `STATUS`,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+            <if test="createUser != null">
+                CREATE_USER,
+            </if>
+            <if test="updateTime != null">
+                UPDATE_TIME,
+            </if>
+            <if test="remark != null">
+                REMARK,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="customerId != null">
+                #{customerId,jdbcType=VARCHAR},
+            </if>
+            <if test="customerName != null">
+                #{customerName,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=CHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=BIGINT},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=BIGINT},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.tencent.wxcloudrun.model.TCustomerBase">
+        <!--@mbg.generated-->
+        update t_customer_base
+        <set>
+            <if test="customerName != null">
+                CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                `STATUS` = #{status,jdbcType=CHAR},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=BIGINT},
+            </if>
+            <if test="createUser != null">
+                CREATE_USER = #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                UPDATE_TIME = #{updateTime,jdbcType=BIGINT},
+            </if>
+            <if test="remark != null">
+                REMARK = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.tencent.wxcloudrun.model.TCustomerBase">
+        <!--@mbg.generated-->
+        update t_customer_base
+        set CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR},
+            `STATUS`      = #{status,jdbcType=CHAR},
+            CREATE_TIME   = #{createTime,jdbcType=BIGINT},
+            CREATE_USER   = #{createUser,jdbcType=VARCHAR},
+            UPDATE_TIME   = #{updateTime,jdbcType=BIGINT},
+            REMARK        = #{remark,jdbcType=VARCHAR}
+        where CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
+    </update>
+</mapper>
