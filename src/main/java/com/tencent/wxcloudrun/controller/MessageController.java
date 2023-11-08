@@ -1,7 +1,7 @@
 package com.tencent.wxcloudrun.controller;
 
 import cn.hutool.json.JSONUtil;
-import com.tencent.wxcloudrun.service.WxMessageLogService;
+import com.tencent.wxcloudrun.service.WxMessageService;
 import com.tencent.wxcloudrun.utils.SHA1;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import org.dom4j.Document;
@@ -10,8 +10,6 @@ import org.dom4j.io.SAXReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.InputStream;
@@ -35,7 +33,7 @@ public class MessageController {
 
 
     @Autowired
-    private WxMessageLogService wxMessageLogService;
+    private WxMessageService wxMessageService;
 
     /**
      * 服务器有效性验证
@@ -84,7 +82,7 @@ public class MessageController {
         WxMpXmlMessage wxMpXmlMessage = WxMpXmlMessage.fromXml(request.getInputStream());
         String reqData = JSONUtil.toJsonStr(wxMpXmlMessage);
         log.info("接收到的微信消息：{}", reqData);
-        wxMessageLogService.saveMessageLog(reqData, "success");
+        wxMessageService.saveMessageLog(reqData, "success");
         return "success";
     }
 
