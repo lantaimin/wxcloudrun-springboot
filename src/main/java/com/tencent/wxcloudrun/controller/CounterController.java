@@ -39,7 +39,7 @@ public class CounterController {
     private WxMessageLogService wxMessageLogService;
 
     @PostMapping(value = "/api/message")
-    String queryCustomerInfo(@RequestParam String reqData) {
+    String queryCustomerInfo(@RequestBody String reqData) {
         logger.info("接收到公众号的推送消息：{}", reqData);
         wxMessageLogService.saveMessageLog(reqData, "success");
         return "success";
