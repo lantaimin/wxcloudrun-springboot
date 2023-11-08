@@ -30,7 +30,7 @@ public class WxMessageService {
     private TWxMessageLogMapper wxMessageLogMapper;
 
 
-    public Object receiveMsg(String reqData){
+    public String receiveMsg(String reqData){
         LOG.info("接收到公众号的推送消息：{}", reqData);
         JSONObject reqJsonObj = JSONUtil.parseObj(reqData);
         if (BaseWxMsgReq.CHECK_CONTAINER_PATH.equals(reqJsonObj.getStr("action"))) {
@@ -46,8 +46,8 @@ public class WxMessageService {
             textResp.setCreateTime(System.currentTimeMillis()/1000);
             textResp.setMsgType(WxMsgType.TYPE_TEXT.getType());
             textResp.setContent("你好 "+ DateUtil.format(new Date(),"yyyy-MM-dd HH:mm:ss"));
-            this.updateRespData(logId, JSONUtil.toJsonStr(textMsgReq));
-            return textResp;
+            this.updateRespData(logId, JSONUtil.toJsonStr(textResp));
+            return JSONUtil.toJsonStr(textResp);
         }
         return "success";
     }

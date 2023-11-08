@@ -38,7 +38,7 @@ public class CounterController {
     private WxMessageService wxMessageService;
 
     @PostMapping(value = "/api/message")
-    Object message(@RequestBody String reqData) {
+    String message(@RequestBody String reqData) {
         return wxMessageService.receiveMsg(reqData);
     }
 
