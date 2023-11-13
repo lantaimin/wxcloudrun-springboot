@@ -9,6 +9,8 @@ import com.tencent.wxcloudrun.dto.ReplyTextResp;
 import com.tencent.wxcloudrun.dto.TextMsgReq;
 import com.tencent.wxcloudrun.enums.WxMsgType;
 import com.tencent.wxcloudrun.model.TWxMessageLog;
+import com.tencent.wxcloudrun.xfxh.component.XfService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +31,11 @@ public class WxMessageService {
     @Autowired
     private TWxMessageLogMapper wxMessageLogMapper;
 
+    @Autowired
+    private XfService xfService;
 
-    public String receiveMsg(String reqData){
+
+    public String receiveMsg(String reqData) {
         LOG.info("接收到公众号的推送消息：{}", reqData);
         JSONObject reqJsonObj = JSONUtil.parseObj(reqData);
         if (BaseWxMsgReq.CHECK_CONTAINER_PATH.equals(reqJsonObj.getStr("action"))) {
@@ -45,7 +50,17 @@ public class WxMessageService {
             textResp.setFromUserName(textMsgReq.getToUserName());
             textResp.setCreateTime(System.currentTimeMillis()/1000);
             textResp.setMsgType(WxMsgType.TYPE_TEXT.getType());
-            textResp.setContent("你好 "+ DateUtil.format(new Date(),"yyyy-MM-dd HH:mm:ss"));
+
+            String answer = null;
+            try {
+                answer = xfService.question(textMsgReq.getFromUserName(), textMsgReq.getContent());
+            } catch (InterruptedException e) {
+                LOG.error("content={},调用讯飞大模型异常：{}", textMsgReq.getContent(), e);
+            }
+            if (StringUtils.isBlank(answer)) {
+                answer = "哦豁~系统异常啦，快去找我大哥兰傲天修一下bug叭~";
+            }
+            textResp.setContent("周霸天：" + answer);
             this.updateRespData(logId, JSONUtil.toJsonStr(textResp));
             return JSONUtil.toJsonStr(textResp);
         }

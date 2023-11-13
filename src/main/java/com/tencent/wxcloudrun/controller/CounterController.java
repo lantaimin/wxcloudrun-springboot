@@ -4,6 +4,7 @@ import com.tencent.wxcloudrun.dao.TCustomerBaseMapper;
 import com.tencent.wxcloudrun.dto.QueryCustomerInfoReq;
 import com.tencent.wxcloudrun.model.TCustomerBase;
 import com.tencent.wxcloudrun.service.WxMessageService;
+import com.tencent.wxcloudrun.xfxh.component.XfService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.tencent.wxcloudrun.config.ApiResponse;
